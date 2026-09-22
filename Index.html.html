@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SF Hipotecas - Capacitación Ejecutiva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0B1B3D;
+            --navy-light: #162C5B;
+            --gold: #C5A059;
+            --gold-hover: #B08C45;
+            --bg-light: #F4F5F7;
+            --white: #FFFFFF;
+            --text-dark: #1A202C;
+            --text-muted: #64748B;
+            --border-color: #E2E8F0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F172A;
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .presentation-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background: var(--white);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: var(--bg-light);
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Slide Dark Variant */
+        .slide.dark {
+            background-color: var(--navy);
+            color: var(--white);
+        }
+
+        /* Header Layout */
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .slide.dark .slide-header {
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .slide-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--navy);
+            letter-spacing: -0.5px;
+        }
+
+        .slide.dark .slide-title {
+            color: var(--white);
+        }
+
+        .slide-subtitle {
+            font-size: 14px;
+            color: var(--gold);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Content Areas */
+        .slide-body {
+            flex: 1;
+            display: flex;
+            gap: 30px;
+        }
+
+        /* Cards & Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            width: 100%;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide.dark .card {
+            background: var(--navy-light);
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            width: 42px;
+            height: 42px;
+            background: rgba(197, 160, 89, 0.15);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .slide.dark .card-title {
+            color: var(--white);
+        }
+
+        /* Lists */
+        .custom-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .custom-list li {
+            position: relative;
+            padding-left: 28px;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #334155;
+        }
+
+        .slide.dark .custom-list li {
+            color: #E2E8F0;
+        }
+
+        .custom-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* Callout Box */
+        .callout {
+            background: rgba(197, 160, 89, 0.1);
+            border-left: 4px solid var(--gold);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-top: auto;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--navy);
+        }
+
+        .slide.dark .callout {
+            color: var(--white);
+        }
+
+        /* Process Steps Horizontal */
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            position: relative;
+            margin-top: 40px;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            top: 35px;
+            left: 50px;
+            right: 50px;
+            height: 3px;
+            background: var(--border-color);
+            z-index: 1;
+        }
+
+        .timeline-step {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 180px;
+        }
+
+        .step-number {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 3px solid var(--gold);
+            color: var(--navy);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Tables */
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .styled-table th {
+            background: var(--navy);
+            color: var(--white);
+            text-align: left;
+            padding: 16px 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .styled-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        .styled-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .highlight-val {
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        /* Footer Navigation */
+        .slide-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .slide.dark .slide-footer {
+            border-top-color: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Controls */
+        .nav-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: var(--navy);
+            color: var(--white);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: background 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn:hover {
+            background: var(--gold);
+        }
+
+        /* Cover Slide Specifics */
+        .cover-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            max-width: 800px;
+        }
+
+        .cover-tag {
+            color: var(--gold);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .cover-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+
+        .cover-desc {
+            font-size: 18px;
+            color: #94A3B8;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .cover-footer {
+            display: flex;
+            gap: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+        }
+
+        .cover-meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cover-meta-label {
+            font-size: 12px;
+            color: #64748B;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .cover-meta-val {
+            font-size: 14px;
+            color: var(--white);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="presentation-container">
+
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide dark active" id="slide-1">
+            <div class="cover-content">
+                <div class="cover-tag">Capacitación Ejecutiva</div>
+                <h1 class="cover-title">Soluciones Hipotecarias e Inversión Inmobiliaria</h1>
+                <p class="cover-desc">Herramientas financieras estratégicas para optimizar la captación, acelerar ventas e incrementar ingresos en oficinas comerciales.</p>
+                
+                <div class="cover-footer">
+                    <div class="cover-meta-item">
+                        <span class="cover-meta-label">Presentado por</span>
+                        <span class="cover-meta-val">SF Hipotecas</span>
+                    </div>
+                    <div class="cover-meta-item">
+                        <span class="cover-meta-label">Audiencia</span>
+                        <span class="cover-meta-val">Equipos comerciales</span>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>SF Hipotecas © 2026</span>
+                <span>Diapositiva 1 de 8</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: AGENDA -->
+        <div class="slide" id="slide-2">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-subtitle">Estructura</span>
+                    <h2 class="slide-title">¿Qué Vamos a Ver Hoy?</h2>
+                </div>
+            </div>
+            <div class="slide-body">
+                <div class="grid-3">
+                    <div class="card">
+                        <div class="card-icon">01</div>
+                        <h3 class="card-title">Captar Más Propiedades</h3>
+                        <p style="font-size: 14px; color: var(--text-muted); margin-top: 12px; line-height: 1.5;">Ofrecé a tus clientes vendedores una ventaja exclusiva con posibilidad de financiamiento de hasta el 50% del valor de la propiedad.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">02</div>
+                        <h3 class="card-title">Vender Más Rápido</h3>
+                        <p style="font-size: 14px; color: var(--text-muted); margin-top: 12px; line-height: 1.5;">Sostené al cliente comprador en la negociación con oferta de créditos de aprobación ágil en 7 días y evitá la caída de la operación.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">03</div>
+                        <h3 class="card-title">Generar Nuevos Ingresos</h3>
+                        <p style="font-size: 14px; color: var(--text-muted); margin-top: 12px; line-height: 1.5;">Monetizá tus prospectos no compradores convirtiéndolos en inversores con un 3% de comisión permanente por referido.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>SF Hipotecas — Capacitación Comercial</span>
+                <span>Diapositiva 2 de 8</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: CAPTACIÓN Y VENTA -->
+        <div class="slide" id="slide-3">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-subtitle">Estrategia Comercial</span>
+                    <h2 class="slide-title">Captación y Aceleración de Ventas</h2>
+                </div>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">🏠</div>
+                            <h3 class="card-title">Captación Exclusiva (Vendedor)</h3>
+                        </div>
+                        <ul class="custom-list">
+                            <li>Propuesta diferenciadora frente a la competencia.</li>
+                            <li>Financiación hasta el 50% del valor de venta.</li>
+                            <li>Cierres a mayor valor.</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">🤝</div>
+                            <h3 class="card-title">Cierre Efectivo (Comprador)</h3>
+                        </div>
+                        <ul class="custom-list">
+                            <li>Aprobación formal del crédito en solo 7 días hábiles.</li>
+                            <li>Financiación transparente a tasa fija en dólares.</li>
+                            <li>Disminución del riesgo de caída de reservas.</li>
+                        </ul>
+                        <div class="callout">
+                            💡 <b>Tip Comercial:</b> Solicitame una simulación de cuotas por whatsapp e invitalos a precalificar de inmediato.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>SF Hipotecas — Ventaja Competitiva</span>
+                <span>Diapositiva 3 de 8</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: REQUISITOS DE PROPIEDADES -->
+        <div class="slide" id="slide-4">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-subtitle">Condiciones Técnicas</span>
+                    <h2 class="slide-title">Requisitos del Inmueble y Crédito</h2>
+                </div>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">📋</div>
+                            <h3 class="card-title">Elegibilidad de la Propiedad</h3>
+                        </div>
+                        <ul class="custom-list">
+                            <li>Propiedad con <b>Escritura Regularizada</b> de dominio.</li>
+                            <li>Precio de mercado superior a <b>USD $40.000</b>.</li>
+                            <li>Sin gravámenes o hipotecas simultáneas vigentes.</li>
+                            <li>Ubicación en zonas urbanas de alta liquidez.</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">⚙️</div>
+                            <h3 class="card-title">Condiciones Financieras</h3>
+                        </div>
+                        <ul class="custom-list">
+                            <li><b>Destino:</b> Adquisición o Refacción de viviendas.</li>
+                            <li><b>Tasa de Interés:</b> Desde 13,5% TNA en dólares.</li>
+                            <li><b>Plazo flexible:</b> De 1 a 5 años.</li>
+                            <li><b>Sistema de Amortización:</b> Francés, cuota fija en dólares.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>SF Hipotecas — Requisitos del Crédito</span>
+                <span>Diapositiva 4 de 8</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: PROCESO EN 5 PASOS -->
+        <div class="slide" id="slide-5">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-subtitle">Metodología</span>
+                    <h2 class="slide-title">Proceso de Operación en 5 Pasos</h2>
+                </div>
+            </div>
+            <div class="slide-body" style="align-items: center;">
+                <div class="timeline">
+                    <div class="timeline-step">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Solicitud</div>
+                        <div class="step-desc">Armado de carpeta con documentación del cliente y propiedad.</div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Aprobación</div>
+                        <div class="step-desc">Análisis crediticio y pre-aprobación formal en 7 días hábiles.</div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Coordinación</div>
+                        <div class="step-desc">Instrucción a escribanía para confección de mutuo.</div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Firma</div>
+                        <div class="step-desc">Firma de escritura pública e hipoteca de primer grado.</div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="step-number">5</div>
+                        <div class="step-title">Desembolso</div>
+                        <div class="step-desc">Recepción inmediata de los fondos acordados.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>SF Hipotecas — Flujo de Trabajo</span>
+                <span>Diapositiva 5 de 8</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: MODELO DE INVERSIÓN Y RENTABILIDAD -->
+        <div class="slide" id="slide-6">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-subtitle">Oportunidad de Negocio</span>
+                    <h2 class="slide-title">Módulo de Inversión y Rentabilidad</h2>
+                </div>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">📈</div>
+                            <h3 class="card-title">Condiciones de Inversión</h3>
+                        </div>
+                        <ul class="custom-list">
+                            <li><b>Tasa Nominal Anual (TNA):</b> Desde 13,5% en USD.</li>
+                            <li><b>TEA:</b> 14,3% | <b>CFT:</b> 38% en USD.</li>
+                            <li><b>Inversión Mínima:</b> USD $15.000.</li>
+                            <li><b>Garantía:</b> Hipoteca de primer grado a nombre del inversor.</li>
+                            <li><b>Cobro:</b> Cuota mensual fija a partir del mes siguiente.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <table class="styled-table">
+                            <thead>
+                                <tr>
+                                    <th>Concepto de Simulación</th>
+                                    <th>Valor Estimado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Préstamo Solicitado</td>
+                                    <td class="highlight-val">USD $20.000,00</td>
+                                </tr>
+                                <tr>
+                                    <td>Comisiones Iniciales</td>
+                                    <td>USD $1.000,00</td>
+                                </tr>
+                                <tr>
+                                    <td>Monto Recibido Neto</td>
+                                    <td class="highlight-val">USD $21.000,00</td>
+                                </tr>
+                                <tr>
+                                    <td>Valor Cuota Mensual</td>
+                                    <td class="highlight-val">USD $483,21</td>
+                                </tr>
+                                <tr>
+                                    <td>Total Retorno (60 Meses)</td>
+                                    <td class="highlight-val" style="color: var(--gold);">USD $28.992,00</td>
+                                </tr>
+                                <tr>
+                                    <td>Rendimiento Operativo Total</td>
+                                    <td class="highlight-val">38,05%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>SF Hipotecas — Modelo de Inversión</span>
+                <span>Diapositiva 6 de 8</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: DOCUMENTACIÓN REQUERIDA -->
+        <div class="slide" id="slide-7">
+            <div class="slide-header">
+                <div>
+                    <span class="slide-subtitle">Requisitos de Cumplimiento</span>
+                    <h2 class="slide-title">Legajo de Documentación Requerida</h2>
+                </div>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">📂</div>
+                            <h3 class="card-title">Legajo del Inmueble</h3>
+                        </div>
+                        <ul class="custom-list">
+                            <li>Copia legible de la Escritura de Propiedad.</li>
+                            <li>DNI de los titulares de dominio.</li>
+                            <li>Reserva e Historial comercial del inmueble (PDF).</li>
+                            <li>VEP y Reglamento de Copropiedad (si aplica).</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">👤</div>
+                            <h3 class="card-title">Legajo del Solicitante</h3>
+                        </div>
+                        <ul class="custom-list">
+                            <li>DNI actualizado y Constancia de CUIT / CUIL.</li>
+                            <li>Comprobante de servicio o impuesto a su nombre.</li>
+                            <li>Recibo de sueldo / DDJJ Ganancias / Facturación (últimos 6 meses).</li>
+                            <li>Capacidad de pago: Cuota/Ingreso inferior al 40%.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>SF Hipotecas — Documentación</span>
+                <span>Diapositiva 7 de 8</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: CONTACTO -->
+        <div class="slide dark" id="slide-8">
+            <div class="cover-content" style="align-items: center; text-align: center; margin: auto;">
+                <div class="cover-tag">Alianza Comercial</div>
+                <h1 class="cover-title" style="font-size: 38px;">Impulse sus Operaciones Inmobiliarias con SF Hipotecas</h1>
+                <p class="cover-desc" style="max-width: 600px;">Acompañamos a su oficina comercial y a sus clientes durante todo el proceso de financiamiento e inversión.</p>
+                
+                <div class="card" style="width: 100%; max-width: 500px; text-align: left; background: var(--navy-light);">
+                    <div style="font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 4px;">Jorgelina Ferreyra</div>
+                    <div style="color: var(--gold); font-size: 14px; font-weight: 600; margin-bottom: 16px;">Ejecutiva Comercial - Santa Fe</div>
+                    <div style="color: #94A3B8; font-size: 15px; display: flex; flex-direction: column; gap: 8px;">
+                        <span>📞 <b>Teléfono:</b> (342) 436-0867</span>
+                        <span>🌐 <b>Plataforma:</b> SF Hipotecas</span>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>SF Hipotecas © 2026</span>
+                <span>Diapositiva 8 de 8</span>
+            </div>
+        </div>
+
+        <!-- CONTROLES -->
+        <div class="nav-controls">
+            <button class="nav-btn" onclick="prevSlide()">❮</button>
+            <button class="nav-btn" onclick="nextSlide()">❯</button>
+        </div>
+
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 8;
+
+        function showSlide(index) {
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active');
+            });
+            document.getElementById(`slide-${index}`).classList.add('active');
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+            } else {
+                currentSlide = 1;
+            }
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+            } else {
+                currentSlide = totalSlides;
+            }
+            showSlide(currentSlide);
+        }
+
+        // Navegación con teclado
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SF Hipotecas - Soluciones Crediticias e Inversión Inmobiliaria</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0B1B3D;
+            --navy-light: #162C5B;
+            --gold: #C5A059;
+            --gold-hover: #B08C45;
+            --bg-light: #F4F5F7;
+            --white: #FFFFFF;
+            --text-dark: #1A202C;
+            --text-muted: #64748B;
+            --border-color: #E2E8F0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+        }
+
+        /* Header & Nav */
+        header {
+            background-color: var(--navy);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .btn-header {
+            background-color: var(--gold);
+            color: var(--navy);
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-header:hover {
+            background-color: var(--gold-hover);
+            color: var(--white);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: var(--white);
+            padding: 80px 0 100px 0;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero-tag {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .hero-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-desc {
+            font-size: 16px;
+            color: #94A3B8;
+            margin-bottom: 30px;
+        }
+
+        .hero-features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .hero-feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+        }
+
+        .hero-feature-item span {
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        /* Form Card */
+        .form-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 36px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+            color: var(--text-dark);
+        }
+
+        .form-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .form-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 6px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--navy);
+            color: var(--white);
+            border: none;
+            padding: 14px;
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--gold);
+            color: var(--navy);
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 80px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 50px auto;
+        }
+
+        .section-subtitle {
+            color: var(--gold);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-top: 6px;
+        }
+
+        /* Grid Services */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 32px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(197, 160, 89, 0.15);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 12px;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Requirements Table Section */
+        .req-box {
+            background: var(--navy);
+            color: var(--white);
+            border-radius: 12px;
+            padding: 48px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .req-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(197, 160, 89, 0.4);
+            padding-bottom: 10px;
+        }
+
+        .req-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .req-list li {
+            position: relative;
+            padding-left: 28px;
+            font-size: 14px;
+            color: #E2E8F0;
+        }
+
+        .req-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--navy);
+            color: var(--white);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 0;
+            font-size: 13px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            color: #94A3B8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-container, .grid-3, .req-box {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">SF <span>HIPOTECAS</span></a>
+            <a href="#solicitud" class="btn-header">Solicitar Financiación</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-container">
+            <div>
+                <div class="hero-tag">Soluciones Financieras Inmobiliarias</div>
+                <h1 class="hero-title">Asegure la compra de su propiedad con respaldo hipotecario</h1>
+                <p class="hero-desc">Ofrecemos financiación propia de hasta el 50% del valor de tasación del inmueble con pre-aprobación en 7 días hábiles y la tranquilidad de una tasa fija en dólares.</p>
+                
+                <div class="hero-features">
+                    <div class="hero-feature-item"><span>✓</span> Financiación de hasta el 50% del valor del inmueble</div>
+                    <div class="hero-feature-item"><span>✓</span> Evaluación y pre-aprobación rápida en 7 días hábiles</div>
+                    <div class="hero-feature-item"><span>✓</span> Plazos flexibles de 1 a 5 años con sistema Francés</div>
+                </div>
+            </div>
+
+            <!-- FORMULARIO DE CONTACTO -->
+            <div class="form-card" id="solicitud">
+                <h2 class="form-title">Precalificación Inmediata</h2>
+                <p class="form-subtitle">Complete el formulario para iniciar la gestión de su crédito con nuestro equipo ejecutivo.</p>
+                
+                <form id="contactForm" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="nombre">Nombre y Apellido *</label>
+                        <input type="text" id="nombre" required placeholder="Ej. Juan Pérez">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dni">DNI *</label>
+                            <input type="text" id="dni" required placeholder="Sin puntos">
+                        </div>
+                        <div class="form-group">
+                            <label for="cuit">CUIT / CUIL *</label>
+                            <input type="text" id="cuit" required placeholder="20-XXXXXXXX-X">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Correo Electrónico *</label>
+                            <input type="email" id="email" required placeholder="juan@ejemplo.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="whatsapp">WhatsApp / Teléfono *</label>
+                            <input type="tel" id="whatsapp" required placeholder="Ej. +54 342 ...">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inmobiliaria">Inmobiliaria en la que está comprando *</label>
+                        <input type="text" id="inmobiliaria" required placeholder="Nombre de la inmobiliaria u oficina">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gestor">Nombre del Gestor / Agente Inmobiliario *</label>
+                        <input type="text" id="gestor" required placeholder="Nombre de su asesor o gestor asignado">
+                    </div>
+
+                    <button type="submit" class="btn-submit">Enviar Solicitud de Crédito</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- VENTAJAS -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Beneficios Exclusivos</span>
+                <h2 class="section-title">¿Por qué elegir SF Hipotecas?</h2>
+            </div>
+
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3 class="card-title">Aprobación Ágil</h3>
+                    <p class="card-desc">Análisis crediticio eficiente que le otorga una pre-aprobación formal en tan solo 7 días hábiles para no perder la reserva de su propiedad.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🛡️</div>
+                    <h3 class="card-title">Tasa Fija Garantizada</h3>
+                    <p class="card-desc">Certeza financiera absoluta mediante amortización bajo sistema Francés en cuotas fijas en dólares con tasas competitivas desde 13.5% TNA.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🤝</div>
+                    <h3 class="card-title">Respaldo Integral</h3>
+                    <p class="card-desc">Acompañamiento personalizado directo con la escribanía para la confección del mutuo e hipoteca de primer grado.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REQUISITOS -->
+    <section class="section" style="background-color: var(--white);">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Elegibilidad</span>
+                <h2 class="section-title">Requisitos del Crédito e Inmueble</h2>
+            </div>
+
+            <div class="req-box">
+                <div>
+                    <h3 class="req-title">🏠 Requisitos de la Propiedad</h3>
+                    <ul class="req-list">
+                        <li>Inmueble con <b>Escritura Regularizada</b> de dominio.</li>
+                        <li>Valuación de mercado superior a <b>USD $40.000</b>.</li>
+                        <li>Propiedad libre de otros gravámenes o hipotecas simultáneas.</li>
+                        <li>Ubicación en zonas urbanas consolidadas.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="req-title">👤 Legajo del Solicitante</h3>
+                    <ul class="req-list">
+                        <li>DNI actualizado y Constancia de CUIT/CUIL.</li>
+                        <li>Comprobante de servicio o impuesto a su nombre.</li>
+                        <li>Demostración de ingresos (últimos 6 meses de recibos, monotributo o ganancias).</li>
+                        <li>Relación Cuota/Ingreso menor al 40%.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <div>
+                <p style="font-weight: 700; color: var(--white); font-size: 16px;">SF HIPOTECAS</p>
+                <p class="footer-text">Atención Comercial: Jorgelina Ferreyra | Tel: (342) 436-0867</p>
+            </div>
+            <div class="footer-text">
+                © 2026 SF Hipotecas. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const nombre = document.getElementById('nombre').value;
+            const gestor = document.getElementById('gestor').value;
+            
+            alert(`¡Gracias ${nombre}! Hemos recibido tu solicitud. El gestor ${gestor} y nuestro equipo comercial te contactarán a la brevedad.`);
+            
+            document.getElementById('contactForm').reset();
+        }
+    </script>
+</body>
+</html>
